@@ -29,7 +29,6 @@ class NewsController extends Controller
     }
 
     public function update (Request $request, $id) {
-        $request = new Request();
         $request['id'] = $id;
 
         $validator = Validator::make($request->all(), [
@@ -42,7 +41,10 @@ class NewsController extends Controller
             ], 404);
         }
 
-        news::where('id', $id)->update($request->all());
+        news::where('id', $id)->update([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi
+        ]);
 
         return response()->json([
             'status' => 'success'
