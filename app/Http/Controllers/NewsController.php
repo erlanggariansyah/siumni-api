@@ -73,4 +73,21 @@ class NewsController extends Controller
     public function read () {
         return response()->json(news::all());
     }
+
+    public function getById($id) {
+        $request = new Request();
+        $request['id'] = $id;
+
+        $validator = Validator::make($request->all(), [
+            'id' => 'exists:news,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => 'maaf berita tidak ditemukan.'
+            ], 404);
+        }
+
+        return response()->json(news::where('id', $id)->first());
+    }
 }

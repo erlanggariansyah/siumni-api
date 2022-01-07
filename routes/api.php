@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\AlumniController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +31,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/news', [NewsController::class, 'read']);
     Route::post('/news', [NewsController::class, 'create']);
-    Route::put('/news', [NewsController::class, 'update']);
-    Route::delete('/news', [NewsController::class, 'delete']);
+    Route::put('/news/{id}', [NewsController::class, 'update']);
+    Route::delete('/news/{id}', [NewsController::class, 'delete']);
+    Route::get('/news/{id}', [NewsController::class, 'getById']);
+
+    Route::get('/alumni', [AlumniController::class, 'read']);
+    Route::post('/alumni', [AlumniController::class, 'create']);
+    Route::put('/alumni/{id}', [AlumniController::class, 'update']);
+    Route::delete('/alumni/{id}', [AlumniController::class, 'delete']);
+    Route::get('/alumni/{id}', [AlumniController::class, 'getById']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
